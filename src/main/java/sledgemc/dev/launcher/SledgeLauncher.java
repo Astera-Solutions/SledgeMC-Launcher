@@ -122,7 +122,7 @@ public class SledgeLauncher extends Application {
         installButton.setOnMouseExited(e -> installButton.setStyle(
                 "-fx-background-color: #ffffff; -fx-text-fill: #000000; -fx-font-size: 14px; -fx-font-weight: bold; -fx-background-radius: 8; -fx-cursor: hand;"));
 
-        Button exportButton = new Button("EXPORT PRISM BUNDLE");
+        Button exportButton = new Button("EXPORT PORTABLE ZIP");
         exportButton.setPrefWidth(240);
         exportButton.setPrefHeight(50);
         exportButton.setStyle(
@@ -276,13 +276,13 @@ public class SledgeLauncher extends Application {
     private void exportPrism() {
         String version = versionCombo.getValue();
         FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Save Prism Instance");
+        fileChooser.setTitle("Export Bundle");
         fileChooser.setInitialFileName("SledgeMC-" + version + ".zip");
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Zip Files", "*.zip"));
         File dest = fileChooser.showSaveDialog(null);
 
         if (dest != null) {
-            log("> Exporting Prism Bundle...");
+            log("> Exporting Portable Zip...");
             try {
                 PrismPackager packager = new PrismPackager(version);
                 packager.createPackage(dest.toPath());
