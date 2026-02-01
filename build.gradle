@@ -1,0 +1,75 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'org.openjfx.javafxplugin' version '0.1.0'
+    id 'com.gradleup.shadow' version '9.0.0-beta4'
+}
+
+group = 'sledgemc.dev'
+version = '1.0.0-SNAPSHOT'
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
+}
+
+javafx {
+    version = '21'
+    modules = ['javafx.controls', 'javafx.fxml', 'javafx.graphics']
+}
+
+repositories {
+    mavenCentral()
+    maven { url 'https://jitpack.io' }
+    maven { url 'https://libraries.minecraft.net' }
+    maven { url 'https://maven.fabricmc.net/' }
+    maven { url 'https://repo.spongepowered.org/maven/' }
+}
+
+dependencies {
+    implementation 'com.github.Astera-Solutions:SledgeMC-Loader:1.21.11'
+    
+    implementation "org.ow2.asm:asm:9.7.1"
+    implementation "org.ow2.asm:asm-commons:9.7.1"
+    implementation "org.ow2.asm:asm-tree:9.7.1"
+    implementation "net.fabricmc:sponge-mixin:0.15.3+mixin.0.8.7"
+    implementation "com.google.code.gson:gson:2.11.0"
+    implementation "com.google.guava:guava:33.3.1-jre"
+    implementation 'net.fabricmc:tiny-remapper:0.10.4'
+    implementation 'net.fabricmc:mapping-io:0.6.1'
+}
+
+application {
+    mainClass = 'sledgemc.dev.launcher.Main'
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'sledgemc.dev.launcher.Main'
+    }
+}
+
+shadowJar {
+    archiveBaseName = 'sledge-launcher'
+    archiveClassifier = ''
+    mergeServiceFiles()
+    
+    manifest {
+        attributes 'Main-Class': 'sledgemc.dev.launcher.Main'
+    }
+}
+
+distZip.enabled = false
+distTar.enabled = false
+startScripts.enabled = false
+
+// Fix implicit dependency issues for Gradle 9+
+tasks.named('startShadowScripts').configure {
+    dependsOn(jar)
+}
+tasks.named('startScripts').configure {
+    dependsOn(jar)
+}
+
+assemble.dependsOn shadowJar
+build.dependsOn shadowJar
