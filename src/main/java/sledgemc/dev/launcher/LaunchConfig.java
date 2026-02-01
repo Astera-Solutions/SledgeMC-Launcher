@@ -17,7 +17,7 @@ public class LaunchConfig {
 
     private String minecraftPath;
     private String modsPath;
-    private String lastVersion = "1.21.4";
+    private String lastVersion = "1.21.11";
     private int allocatedMemory = 4096;
 
     public LaunchConfig() {

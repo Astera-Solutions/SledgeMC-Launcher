@@ -184,8 +184,8 @@ public class SledgeLauncher extends Application {
         versionLabel.setTextFill(Color.web("#555555"));
 
         versionCombo = new ComboBox<>();
-        versionCombo.getItems().addAll("1.21.4", "1.21.3", "1.21.2", "1.21.1", "1.21");
-        versionCombo.setValue("1.21.4");
+        versionCombo.getItems().addAll("1.21.11", "1.21.8", "1.21.4");
+        versionCombo.setValue("1.21.11");
         versionCombo.setPrefWidth(400);
         versionCombo.setPrefHeight(42);
 
